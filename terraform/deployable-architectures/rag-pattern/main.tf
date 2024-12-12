@@ -266,5 +266,41 @@ resource "ibm_iam_access_group_policy" "iam_watsonx_governance_policy" {
 ###############################################################################
 resource "ibm_iam_access_group_members" "rag_pattern_da_members" {
   access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
-  ibm_ids = ["acm@us.ibm.com"]
+  ibm_ids = [var.account_admin_email]
+}
+
+
+
+###############################################################################
+# Retrieve Resource Group where all shared DA resources are provisioned
+###############################################################################
+data "ibm_resource_group" "deployable_architectures_rg" {
+    name = "deployable-architectures-rg"
+}
+
+
+###############################################################################
+# Retrieve Secrets Manager service
+###############################################################################
+data "ibm_resource_instance" "secrets_manager" {
+    name = "deployable-architectures-sm"
+    service = "secrets-manager"
+    location = var.region
+    resource_group_id = data.ibm_resource_group.deployable_architectures_rg.id
+}
+
+## create an API Key to run the DA
+resource "ibm_iam_api_key" "iam_rag_pattern_api_key" {
+  name = "rag-pattern-da-api-key"
+}
+
+
+resource "ibm_sm_arbitrary_secret" "sm_arbitrary_secret" {
+  name          = "rag-pattern-secret"
+  instance_id   = data.ibm_resource_instance.secrets_manager.guid
+  region        = var.region
+  custom_metadata = {"pattern":"rag"}
+  description = "Arbitrary secret used to configure the RAG pattern deployable architecture"
+  labels = ["rag-pattern-da-secret"]
+  payload = ibm_iam_api_key.iam_rag_pattern_api_key.apikey
 }
