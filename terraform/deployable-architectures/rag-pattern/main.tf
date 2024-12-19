@@ -25,7 +25,7 @@
 
 #create an Access Group
 resource "ibm_iam_access_group" "rag_pattern_da_ag" {
-  name = "rag-pattern-da-v2-ag"
+  name = "rag-pattern-da-ag"
   description = "Access Group for DA \"Retrieval Augmented Generation (RAG) Pattern\""
 }
 
@@ -76,14 +76,159 @@ resource "ibm_iam_access_group_policy" "iam_identity_policy" {
     }
 }
 
+
+#######
+# NEW #
+###############################################################################
+# Service: IAM Access Management Service
+# Resource: All
+# Role(s): Administrator (Platform)
+###############################################################################
+resource "ibm_iam_access_group_policy" "iam_access_management_policy" {
+    access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
+    roles = ["Administrator"]
+
+    resources {
+        service = "iam-access-management"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: IBM Cloud Metrics Routing
+# Resource: All
+# Role(s): Administrator (Platform)
+###############################################################################
+resource "ibm_iam_access_group_policy" "cloud_metrics_routing_policy" {
+    access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
+    roles = ["Administrator"]
+
+    resources {
+        service = "metrics-router"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: Cloud Logs
+# Resource: All
+# Role(s): Administrator (Platform), Manager (Service)
+###############################################################################
+resource "ibm_iam_access_group_policy" "cloud_logs_policy" {
+    access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
+    roles = ["Administrator", "Manager"]
+
+    resources {
+        service = "logs"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: Cloud Monitoring
+# Resource: All
+# Role(s): Administrator (Platform), Manager (Service)
+###############################################################################
+resource "ibm_iam_access_group_policy" "cloud_monitoring_policy" {
+    access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
+    roles = ["Administrator", "Manager"]
+
+    resources {
+        service = "sysdig-monitor"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: Secrets Manager
+# Resource: All
+# Role(s): Admnistrator (Platform)
+###############################################################################
+resource "ibm_iam_access_group_policy" "secrets_manager_policy" {
+    access_group_id = ibm_iam_access_group.deployable_architectures_ag.id
+    roles   = ["Administrator"]
+
+    resources {
+        service = "secrets-manager"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: Toolchain
+# Resource: All
+# Role(s): Admnistrator (Platform)
+###############################################################################
+resource "ibm_iam_access_group_policy" "toolchain_policy" {
+    access_group_id = ibm_iam_access_group.deployable_architectures_ag.id
+    roles   = ["Administrator"]
+
+    resources {
+        service = "toolchain"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: Continuous Delivery
+# Resource: All
+# Role(s): Admnistrator (Platform)
+###############################################################################
+resource "ibm_iam_access_group_policy" "toolchain_policy" {
+    access_group_id = ibm_iam_access_group.deployable_architectures_ag.id
+    roles   = ["Administrator"]
+
+    resources {
+        service = "continuous-delivery"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: Container Registry
+# Resource: All
+# Role(s): Admnistrator (Platform), Manager (Service)
+###############################################################################
+resource "ibm_iam_access_group_policy" "container_registry_policy" {
+    access_group_id = ibm_iam_access_group.deployable_architectures_ag.id
+    roles   = ["Administrator", "Manager"]
+
+    resources {
+        service = "container-registry"
+    }
+}
+
+#######
+# NEW #
+###############################################################################
+# Service: Cloud Monitoring
+# Resource: All
+# Role(s): Admnistrator (Platform), Manager (Service)
+###############################################################################
+resource "ibm_iam_access_group_policy" "cloud_monitoring_policy" {
+    access_group_id = ibm_iam_access_group.deployable_architectures_ag.id
+    roles   = ["Administrator", "Manager"]
+
+    resources {
+        service = "sysdig-monitor"
+    }
+}
+
 ###############################################################################
 # Service: Cloud Object Storage
 # Resource: All
-# Role(s): Editor (Platform), Manager (Service)
+# Role(s): Administrator (Platform), Manager (Service)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_cos_policy" {
+resource "ibm_iam_access_group_policy" "cos_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
-    roles = ["Editor", "Manager"]
+    roles = ["Administrator","Manager"]
 
     resources {
         service = "cloud-object-storage"
@@ -95,7 +240,7 @@ resource "ibm_iam_access_group_policy" "iam_cos_policy" {
 # Resource: All
 # Role(s): Editor (Platform), Writer (Service)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_ce_policy" {
+resource "ibm_iam_access_group_policy" "code_engine_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor", "Writer"]
 
@@ -109,7 +254,7 @@ resource "ibm_iam_access_group_policy" "iam_ce_policy" {
 # Resource: All
 # Role(s): Administrator (Platform)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_iks_policy" {
+resource "ibm_iam_access_group_policy" "iks_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Administrator"]
 
@@ -123,7 +268,7 @@ resource "ibm_iam_access_group_policy" "iam_iks_policy" {
 # Resource: All
 # Role(s): Administrator (Platform)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_vpc_policy" {
+resource "ibm_iam_access_group_policy" "vpc_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Administrator"]
 
@@ -137,7 +282,7 @@ resource "ibm_iam_access_group_policy" "iam_vpc_policy" {
 # Resource: All
 # Role(s): Editor (Platform)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_db_elasticsearch_policy" {
+resource "ibm_iam_access_group_policy" "db_elasticsearch_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor"]
 
@@ -149,11 +294,11 @@ resource "ibm_iam_access_group_policy" "iam_db_elasticsearch_policy" {
 ###############################################################################
 # Service: Event Notifications
 # Resource: All
-# Role(s): Editor (Platform), Manager (Service)
+# Role(s): Administrator (Platform), Manager (Service)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_event_notifications_policy" {
+resource "ibm_iam_access_group_policy" "event_notifications_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
-    roles = ["Editor", "Manager"]
+    roles = ["Administrator", "Manager"]
 
     resources {
         service = "event-notifications"
@@ -166,7 +311,7 @@ resource "ibm_iam_access_group_policy" "iam_event_notifications_policy" {
 # Resource: All
 # Role(s): Editor (Platform), Manager (Service)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_key_protect_policy" {
+resource "ibm_iam_access_group_policy" "key_protect_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor", "Manager"]
 
@@ -180,7 +325,7 @@ resource "ibm_iam_access_group_policy" "iam_key_protect_policy" {
 # Resource: All
 # Role(s): Editor (Platform), Manager (Service)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_scc_policy" {
+resource "ibm_iam_access_group_policy" "scc_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor", "Manager"]
 
@@ -194,7 +339,7 @@ resource "ibm_iam_access_group_policy" "iam_scc_policy" {
 # Resource: All
 # Role(s): Editor (Platform)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_watson_discovery_policy" {
+resource "ibm_iam_access_group_policy" "watson_discovery_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor"]
 
@@ -206,11 +351,11 @@ resource "ibm_iam_access_group_policy" "iam_watson_discovery_policy" {
 ###############################################################################
 # Service: watsonx Assistant
 # Resource: All
-# Role(s): Editor (Platform)
+# Role(s): Editor (Platform), Manager (Service)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_watsonx_assistant_policy" {
+resource "ibm_iam_access_group_policy" "watsonx_assistant_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
-    roles = ["Editor"]
+    roles = ["Editor", "Manager"]
 
     resources {
         service = "conversation"
@@ -222,7 +367,7 @@ resource "ibm_iam_access_group_policy" "iam_watsonx_assistant_policy" {
 # Resource: All
 # Role(s): Editor (Platform)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_watsonx_ai_runtime_policy" {
+resource "ibm_iam_access_group_policy" "watsonx_ai_runtime_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor"]
 
@@ -236,7 +381,7 @@ resource "ibm_iam_access_group_policy" "iam_watsonx_ai_runtime_policy" {
 # Resource: All
 # Role(s): Editor (Platform)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_watsonx_ai_studio_policy" {
+resource "ibm_iam_access_group_policy" "watsonx_ai_studio_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor"]
 
@@ -250,7 +395,7 @@ resource "ibm_iam_access_group_policy" "iam_watsonx_ai_studio_policy" {
 # Resource: All
 # Role(s): Editor (Platform)
 ###############################################################################
-resource "ibm_iam_access_group_policy" "iam_watsonx_governance_policy" {
+resource "ibm_iam_access_group_policy" "watsonx_governance_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
     roles = ["Editor"]
 
@@ -299,7 +444,7 @@ resource "ibm_sm_arbitrary_secret" "sm_arbitrary_secret" {
   name          = "rag-pattern-secret"
   instance_id   = data.ibm_resource_instance.secrets_manager.guid
   region        = var.region
-  custom_metadata = {"pattern":"rag"}
+  custom_metadata = {"pattern":"rag", "user":"${var.account_admin_email}"}
   description = "Arbitrary secret used to configure the RAG pattern deployable architecture"
   labels = ["rag-pattern-da-secret"]
   payload = ibm_iam_api_key.iam_rag_pattern_api_key.apikey
