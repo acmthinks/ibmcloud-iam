@@ -47,7 +47,7 @@ terraform apply
 5. Validate that a new IAM Access group `deployable-architectures-ag` has been created, has Access policies, and has the <account_admin_email> user as a member of the Access group. The access group will look similar to this:
 ![deployable-architectures-ag](image.png)
 
-6. Continue to the (/deployable-architectures)[/deployable-architectures] sub-directory and find the specific IBM Cloud deployable architecture to complete the configuration for Access.
+6. Continue to the [/deployable-architectures](/terraform/deployable-architectures/) sub-directory and find the specific IBM Cloud deployable architecture to complete the configuration for Access.
 
 
 [^1]: for those that are concerned about Hashicorp BSL (licensing), you might give [tfswitch](https://tfswitch.warrensbox.com/Installation/), a try. The last release of Hashicorp Terraform prior to BSL is Terraform 1.5.7.

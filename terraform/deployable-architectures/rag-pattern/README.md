@@ -9,7 +9,7 @@ To successfully run the IBM Cloud deployable architecture for the [Retrieval Aug
 2. The [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started), installed on your local machine
 3. A [GitHub](https://github.com/signup) account
 4. [Terraform](https://developer.hashicorp.com/terraform/install?product_intent=terraform) installed on your local machine [^1]
-5. Creation of the `deployable-architectures-ag` Access group, per the steps [here](../../README.md)
+5. Creation of the `deployable-architectures-ag` Access group, per the steps [here](/terraform/README.md)
 
 ### Create the `rag-pattern-da-ag` Access group
 Once the access group is created, any user that wants to provision this DA should be added to this access group *and* the `deployable-architectures-ag` access group.
