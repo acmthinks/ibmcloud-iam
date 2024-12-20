@@ -252,11 +252,11 @@ resource "ibm_iam_access_group_policy" "code_engine_policy" {
 ###############################################################################
 # Service: Kubernetes Service
 # Resource: All
-# Role(s): Administrator (Platform)
+# Role(s): Administrator (Platform), Manager (Service)
 ###############################################################################
 resource "ibm_iam_access_group_policy" "iks_policy" {
     access_group_id = ibm_iam_access_group.rag_pattern_da_ag.id
-    roles = ["Administrator"]
+    roles = ["Administrator", "Manager"]
 
     resources {
         service = "containers-kubernetes"
